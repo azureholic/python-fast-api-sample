@@ -20,8 +20,10 @@ class Message(BaseModel):
 @fast_app.get("/item/{item_id}", response_model=Item, responses={404: {"model": Message}})
 async def getitem(item_id: str):
     if item_id == "1":
+        logger.info("Item found")
         return Item(id="1", value="Some Item")
     else:
+        logging.error("Item not found")
         return JSONResponse(status_code=404, content={"message": "Item not found"})
         
 
